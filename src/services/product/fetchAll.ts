@@ -1,15 +1,15 @@
-import { axiosClient } from 'services/axios';
+import { axiosClient } from "services/axios";
 
 export type Product = {
-    id: string;
-    manufacturer: string;
-    name: string;
-    year: string;
+  id: string;
+  manufacturer: string;
+  name: string;
+  year: string;
 };
 
 export type FetchProductsResponse = {
-    products: Product[];
-    status: number;
+  products: Product[];
+  status: number;
 };
 /**
  * Fetch all items in PRODUCTS table
@@ -17,7 +17,15 @@ export type FetchProductsResponse = {
  * @todo send product to state
  */
 export const fetchAllProducts = async () => {
-    const { data } = await axiosClient.get<FetchProductsResponse>('/products');
+  const { data } = await axiosClient.get<FetchProductsResponse>("/products");
 
-    return data;
+  return data;
+};
+
+type Cards = {};
+
+export const fetchProductById = async (product_id: string) => {
+  const { data } = await axiosClient.get<FetchProductsResponse>("/products");
+
+  return data;
 };
