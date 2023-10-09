@@ -1,50 +1,15 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
-import type { Product } from "services/product";
+import { createProductSlice, ProductSlice } from "../slices/product.slice.ts";
 
-interface ProductStoreState {
-  products: Product[];
+export type StateType = ProductSlice;
 
-  addProduct: (product: Product) => void;
-  removeProduct: (productId: string) => void;
-  setProducts: (products: Product[]) => void;
-  updateProduct: (updatedProduct: Product) => void;
-}
-
-const productsStore = create<ProductStoreState>()(
+const store = create<StateType>()(
   devtools(
     persist(
       (set, get) => ({
-        products: [],
-
-        addProduct: (product) => {
-          set((state) => ({ products: [...state.products, product] }));
-        },
-        removeProduct: (productId) => {
-          set((state) => {
-            const products = state.products.filter(
-              (product) => productId != product.id,
-            );
-
-            return { products };
-          });
-        },
-        setProducts: (products: Product[]) => {
-          const { products: existingProducts } = get();
-          if (existingProducts === products) {
-          }
-          set(() => ({ products }));
-        },
-        updateProduct: (updatedProduct) => {
-          set((state) => {
-            const products = state.products.filter(
-              (product) => updatedProduct.id != product.id,
-            );
-
-            return { products: [...products, updatedProduct] };
-          });
-        },
+        ...createProductSlice(set, get),
       }),
       {
         name: "productStore",
@@ -54,4 +19,4 @@ const productsStore = create<ProductStoreState>()(
   ),
 );
 
-export const useProductStore = () => productsStore();
+export const useStore = () => store();

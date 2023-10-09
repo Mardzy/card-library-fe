@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 import { fetchAllProducts, FetchProductsResponse } from "services/product";
 import { useEffect } from "react";
-import { useProductStore } from "config/store.ts";
+import { useStore } from "config/store.ts";
 
 function Products() {
-  const { products, setProducts } = useProductStore();
+  const { products, setProducts } = useStore();
 
   const noProducts = !products.length;
   const { data, error, isLoading } = useQuery<FetchProductsResponse>({
