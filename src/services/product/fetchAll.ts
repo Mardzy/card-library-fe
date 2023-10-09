@@ -22,10 +22,15 @@ export const fetchAllProducts = async () => {
   return data;
 };
 
-type Cards = {};
+export type FetchProductByIdResponse = {
+  products: Product;
+  status: number;
+};
 
 export const fetchProductById = async (product_id: string) => {
-  const { data } = await axiosClient.get<FetchProductsResponse>("/products");
+  const { data } = await axiosClient.get<FetchProductByIdResponse>(
+    `/products/${product_id}`,
+  );
 
   return data;
 };
