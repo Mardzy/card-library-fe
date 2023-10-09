@@ -6,6 +6,7 @@ import { StateType } from "config/store.ts";
 export type ProductSlice = {
   products: Product[];
   addProduct: (product: Product) => void;
+  fetchProductById: (id: string) => Product | undefined;
   removeProduct: (productId: string) => void;
   setProducts: (products: Product[]) => void;
   updateProduct: (updatedProduct: Product) => void;
@@ -15,7 +16,6 @@ export const createProductSlice = (
   get: StoreApi<StateType>["getState"],
 ): ProductSlice => ({
   products: [],
-
   addProduct: (product) => {
     set((state) => ({ products: [...state.products, product] }));
   },
@@ -29,10 +29,12 @@ export const createProductSlice = (
     });
   },
   setProducts: (products: Product[]) => {
-    const { products: existingProducts } = get();
-    if (existingProducts === products) {
-    }
     set(() => ({ products }));
+  },
+  fetchProductById: (productId) => {
+    const product = get().products.find(({ id }) => id === productId);
+    console.log("Product", productId, product);
+    return product;
   },
   updateProduct: (updatedProduct) => {
     set((state) => {

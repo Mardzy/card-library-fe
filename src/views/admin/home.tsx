@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Admin() {
   const adminLinks = [
-    { name: "View Products", to: "view-products" },
+    { name: "View Products", to: "products" },
     { name: "Add Product", to: "add-product" },
     { name: "Add Card", to: "add-card" },
     { name: "Edit Product", to: "edit-product" },
