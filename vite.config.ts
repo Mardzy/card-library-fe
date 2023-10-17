@@ -16,7 +16,7 @@ export default defineConfig({
     alias: {
       components: resolve(__dirname, "./src/components"),
       config: resolve(__dirname, "./src/config"),
-      services: resolve(__dirname, "./src/services"),
+      services: resolve(__dirname, "./src/api"),
       testSetup: resolve(__dirname, "./tests/config/setup"),
       utils: resolve(__dirname, "./src/utils"),
       views: resolve(__dirname, "./src/views"),

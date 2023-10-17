@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 
 import { CSVFileInput, SelectInput, TextInput } from "components/inputs";
-import { addProductService } from "services";
+import { addProductService } from "api";
 import { getProductYearRange } from "utils/functions";
 
 const AddProductSchema = z.object({

@@ -4,8 +4,8 @@ import { Fallback } from "../views/fallback.tsx";
 
 const Admin = lazy(() => import("../views/admin/home"));
 const AddProduct = lazy(() => import("../views/admin/addProduct"));
-const ViewProducts = lazy(() => import("../views/admin/products"));
-const ViewProduct = lazy(() => import("../views/admin/product"));
+const ViewProducts = lazy(() => import("../views/admin/products.view.tsx"));
+const ViewProduct = lazy(() => import("../views/admin/product.view.tsx"));
 const Home = lazy(() => import("../views/home"));
 
 export const Routes = () => (
