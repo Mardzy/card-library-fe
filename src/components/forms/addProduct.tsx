@@ -4,26 +4,18 @@ import {
   SubmitErrorHandler,
   useForm,
 } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 
 import { CSVFileInput, SelectInput, TextInput } from "components/inputs";
-import { addProductService } from "api";
+
+import { AddProductSchema, AddProductType, useAddProduct } from "api/hooks";
+import { useStore } from "config/store.ts";
 import { getProductYearRange } from "utils/functions";
-
-const AddProductSchema = z.object({
-  manufacturer: z.string().min(3).max(40),
-  year: z.string().min(4).max(10),
-  name: z.string().min(3).max(70),
-  fileData: z.string().min(3).max(999999999),
-});
-
-export type AddProductType = z.infer<typeof AddProductSchema>;
 
 export const AddProductForm = () => {
   const productYears = getProductYearRange(2019, 2023, 1);
-  const addProduct = useMutation({ mutationFn: addProductService });
+  const { clearProducts } = useStore();
+  const { mutate, isLoading, isSuccess, isError, error } = useAddProduct();
   const methods = useForm<AddProductType>({
     resolver: zodResolver(AddProductSchema),
   });
@@ -34,10 +26,14 @@ export const AddProductForm = () => {
   } = methods;
 
   const handleSuccess: SubmitHandler<AddProductType> = (formData) => {
-    reset();
+    mutate({ ...formData });
 
-    return addProduct.mutate({ ...formData });
+    if (isSuccess) {
+      reset();
+      clearProducts();
+    }
   };
+
   const handleFailure: SubmitErrorHandler<AddProductType> = (errors) => {
     console.log("Add Product Form Error: ", errors);
   };
@@ -71,13 +67,19 @@ export const AddProductForm = () => {
           name="fileData"
           fileTypes=".csv"
         />
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-10">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-10"
+          disabled={isLoading}
+        >
           Add Product
         </button>
         {isSubmitSuccessful && !isDirty && (
           <div className="mt-20 absolute">
             Successful submission, add another product
           </div>
+        )}
+        {isError && (
+          <p className="absolute text-red-600 text-sm">{`Add Product request error: ${error}`}</p>
         )}
       </form>
     </FormProvider>

@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
 
-import type { Product } from "../api/hooks/useProduct.ts";
+import type { Product } from "api/hooks/useProduct.ts";
 
 export type ActiveProductSlice = {
   activeProduct: Product;

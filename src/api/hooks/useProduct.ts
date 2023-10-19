@@ -1,5 +1,6 @@
-import { axiosClient } from "../index.ts";
 import { useQuery } from "@tanstack/react-query";
+
+import { axiosClient } from "api";
 
 type Card = {};
 
@@ -16,7 +17,9 @@ export type FetchProductByIdResponse = {
   status: number;
 };
 
-const fetchProductById = async (product_id: string) => {
+const fetchProductByIdService = async (
+  product_id: string,
+): Promise<FetchProductByIdResponse> => {
   const { data } = await axiosClient.get<FetchProductByIdResponse>(
     `/products/${product_id}`,
   );
@@ -26,7 +29,7 @@ const fetchProductById = async (product_id: string) => {
 
 export const useProduct = (productId: string, noProduct: boolean) =>
   useQuery<FetchProductByIdResponse, Error>({
-    queryKey: [],
-    queryFn: async () => await fetchProductById(productId),
+    queryKey: ["activeProduct", noProduct],
+    queryFn: async () => await fetchProductByIdService(productId),
     enabled: noProduct,
   });

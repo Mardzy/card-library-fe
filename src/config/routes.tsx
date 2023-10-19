@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { Route, Routes as Router } from "react-router-dom";
-import { Fallback } from "../views/fallback.tsx";
+import { Fallback } from "../views/common/fallback.tsx";
 
 const Admin = lazy(() => import("../views/admin/home"));
 const AddProduct = lazy(() => import("../views/admin/addProduct"));

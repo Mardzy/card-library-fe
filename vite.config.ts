@@ -14,6 +14,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      api: resolve(__dirname, "./src/api"),
       components: resolve(__dirname, "./src/components"),
       config: resolve(__dirname, "./src/config"),
       services: resolve(__dirname, "./src/api"),

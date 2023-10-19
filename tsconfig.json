@@ -19,6 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src",
     "paths": {
+      "api/*": ["api/*"],
       "components/*": ["components/*"],
       "config/*": ["config/*"],
       "pages/*": ["pages/*"],
