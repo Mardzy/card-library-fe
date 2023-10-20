@@ -2,7 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 
 import { axiosClient } from "api";
 
-type Card = {};
+type Card = {
+  id: string;
+  setName: string;
+  card: string;
+  description: string;
+  teamCity: string;
+  teamName: string;
+  rookie?: string;
+  auto?: string;
+  mem?: string;
+  serialNumbered?: string;
+  odds?: string;
+  point: number;
+  productId: string;
+};
 
 export type Product = {
   id: string;
