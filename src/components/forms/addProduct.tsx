@@ -21,7 +21,7 @@ export const AddProductForm = () => {
   });
   const {
     handleSubmit,
-    formState: { errors, isSubmitSuccessful, isDirty },
+    formState: { errors, isSubmitSuccessful },
     reset,
   } = methods;
 
@@ -73,7 +73,7 @@ export const AddProductForm = () => {
         >
           Add Product
         </button>
-        {isSubmitSuccessful && !isDirty && (
+        {isSubmitSuccessful && isSuccess && (
           <div className="mt-20 absolute">
             Successful submission, add another product
           </div>

@@ -7,7 +7,7 @@ export type ProductsSlice = {
   addProduct: (product: Product) => void;
   clearProducts: () => void;
   fetchProductById: (id: string) => Product | undefined;
-  removeProduct: (productId: string) => void;
+  deleteProduct: (productId: string) => void;
   setProducts: (products: Product[]) => void;
 };
 
@@ -19,7 +19,7 @@ export const createProductSlice: StateCreator<ProductsSlice> = (set, get) => ({
   clearProducts: () => {
     set(() => ({ products: [] }));
   },
-  removeProduct: (productId) => {
+  deleteProduct: (productId) => {
     set((state) => {
       const products = state.products.filter(
         (product) => productId != product.id,

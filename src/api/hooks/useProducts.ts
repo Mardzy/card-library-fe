@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { axiosClient } from "api";
 import { Product } from "api/hooks";
+import { AxiosResponse } from "axios";
 
 export type FetchProductsResponse = {
   products: Product[];
@@ -9,7 +10,8 @@ export type FetchProductsResponse = {
 };
 
 const fetchProductsService = async (): Promise<FetchProductsResponse> => {
-  const { data } = await axiosClient.get("/products");
+  const { data }: AxiosResponse<FetchProductsResponse> =
+    await axiosClient.get("/products");
 
   return data;
 };

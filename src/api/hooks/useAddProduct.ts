@@ -1,6 +1,8 @@
-import { axiosClient } from "../axiosClient.ts";
+import { axiosClient } from "api";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
+
+import { Product } from "api/hooks/useProduct.ts";
 
 export const AddProductSchema = z.object({
   manufacturer: z.string().min(3).max(40),
@@ -14,18 +16,27 @@ export type AddProductType = z.infer<typeof AddProductSchema>;
  * Add product to DB
  * @param product
  */
+
+type FetchProductsResponse = {
+  products: Product[];
+  status: number;
+};
+
 export const addProductService = async (
   product: AddProductType,
-): Promise<void> => {
-  try {
-    await axiosClient.post("/products", product);
-  } catch (err) {
-    const error = err as Error;
-    console.log(`Add Product Service: ${error.message}`);
-  }
+): Promise<FetchProductsResponse> => {
+  const { data } = await axiosClient.post("/products", product);
+  return data;
 };
 
 export const useAddProduct = () =>
   useMutation({
     mutationFn: addProductService,
+    onSuccess: (data) => {
+      return data;
+    },
+    onError: (error: Error) => {
+      console.log(`Add Product Service: ${error.message}`);
+      return error;
+    },
   });
