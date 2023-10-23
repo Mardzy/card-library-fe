@@ -1,11 +1,12 @@
 import { lazy } from "react";
 import { Route, Routes as Router } from "react-router-dom";
-import { Fallback } from "../views/common/fallback.tsx";
+import { Fallback } from "../views/common";
 
-const Admin = lazy(() => import("../views/admin/home"));
-const AddProduct = lazy(() => import("../views/admin/addProduct"));
-const ViewProducts = lazy(() => import("../views/admin/products.view.tsx"));
-const ViewProduct = lazy(() => import("../views/admin/product.view.tsx"));
+const Admin = lazy(() => import("../views/admin/admin.home.view"));
+const AddProduct = lazy(() => import("../views/admin/add.product.view"));
+const Products = lazy(() => import("../views/admin/products.view"));
+const Product = lazy(() => import("../views/admin/product.view"));
+const EditProduct = lazy(() => import("../views/admin/edit.product.view"));
 const Home = lazy(() => import("../views/home"));
 
 export const Routes = () => (
@@ -38,7 +39,7 @@ export const Routes = () => (
       path="admin/products"
       element={
         <Fallback>
-          <ViewProducts />
+          <Products />
         </Fallback>
       }
     />
@@ -46,7 +47,15 @@ export const Routes = () => (
       path="admin/products/:productId"
       element={
         <Fallback>
-          <ViewProduct />
+          <Product />
+        </Fallback>
+      }
+    />
+    <Route
+      path="admin/products/:productId/edit"
+      element={
+        <Fallback>
+          <EditProduct />
         </Fallback>
       }
     />

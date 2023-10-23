@@ -10,10 +10,9 @@ import { CSVFileInput, SelectInput, TextInput } from "components/inputs";
 
 import { AddProductSchema, AddProductType, useAddProduct } from "api/hooks";
 import { useStore } from "config/store.ts";
-import { getProductYearRange } from "utils/functions";
+import { productYears } from "utils";
 
 export const AddProductForm = () => {
-  const productYears = getProductYearRange(2019, 2023, 1);
   const { clearProducts } = useStore();
   const { mutate, isLoading, isSuccess, isError, error } = useAddProduct();
   const methods = useForm<AddProductType>({
@@ -35,7 +34,7 @@ export const AddProductForm = () => {
   };
 
   const handleFailure: SubmitErrorHandler<AddProductType> = (errors) => {
-    console.log("Add Product Form Error: ", errors);
+    console.error("Add Product Form Error: ", errors);
   };
 
   return (

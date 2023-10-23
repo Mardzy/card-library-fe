@@ -1,1 +1,1 @@
-export * from './addProduct';
+export * from "./add.product.form.tsx";

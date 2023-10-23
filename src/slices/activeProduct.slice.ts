@@ -6,7 +6,6 @@ export type ActiveProductSlice = {
   activeProduct: Product;
   clearActiveProduct: () => void;
   setActiveProduct: (product: Product) => void;
-  updateProduct: (product: Product) => void;
 };
 export const emptyProduct = {} as Product;
 export const createActiveProductSlice: StateCreator<ActiveProductSlice> = (
@@ -18,12 +17,5 @@ export const createActiveProductSlice: StateCreator<ActiveProductSlice> = (
   },
   setActiveProduct: (product) => {
     set(() => ({ activeProduct: product }));
-  },
-  updateProduct: (product) => {
-    set(({ activeProduct }) => {
-      return activeProduct !== product
-        ? { activeProduct: product }
-        : { activeProduct };
-    });
   },
 });

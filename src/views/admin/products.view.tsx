@@ -13,7 +13,7 @@ function Products() {
   const noProducts = !products.length;
   const [err, setError] = useState<Error | null>(null);
   const { data, error, isLoading } = useProducts(noProducts);
-  const { mutate, error: deleteError } = useDeleteProduct();
+  const { mutate: deleteProductHook, error: deleteError } = useDeleteProduct();
 
   useEffect(() => {
     if (data) {
@@ -29,36 +29,46 @@ function Products() {
   ) : (
     <div className="container h-screen w-full flex flex-col">
       <h1 className="text-4xl font-black">View Products</h1>
-      {products?.map((product) => {
-        const formatFullName = ({
-          cards,
-          manufacturer,
-          name,
-          year,
-        }: Product): string =>
-          `${year} ${manufacturer} ${name} with ${cards?.length} cards`;
-        return (
-          <div className="w-full flex justify-around" key={product.id}>
-            <Link
-              onClick={() => {
-                setActiveProduct(product);
-              }}
-              to={`/admin/products/${product.id}`}
-              className="text-lg pt-5"
-            >
-              {formatFullName(product)}
-            </Link>
-            <button
-              onClick={() => {
-                deleteProduct(product.id);
-                mutate(product.id);
-              }}
-            >
-              delete
-            </button>
-          </div>
-        );
-      })}
+      {products &&
+        products?.map((product) => {
+          const formatFullName = ({
+            cards,
+            manufacturer,
+            name,
+            year,
+          }: Product): string =>
+            `${year} ${manufacturer} ${name} with ${cards?.length} cards`;
+          return (
+            <div className="w-full flex justify-around" key={product.id}>
+              <Link
+                onClick={() => {
+                  setActiveProduct(product);
+                }}
+                to={`/admin/products/${product.id}`}
+                className="text-lg pt-5"
+              >
+                {formatFullName(product)}
+              </Link>
+              <Link
+                onClick={() => {
+                  setActiveProduct(product);
+                }}
+                to={`/admin/products/${product.id}/edit`}
+                className="text-lg pt-5"
+              >
+                edit
+              </Link>
+              <button
+                onClick={() => {
+                  deleteProduct(product.id);
+                  deleteProductHook(product.id);
+                }}
+              >
+                delete
+              </button>
+            </div>
+          );
+        })}
       {deleteError && <div className="error">{deleteError.message}</div>}
     </div>
   );

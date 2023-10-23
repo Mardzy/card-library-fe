@@ -32,11 +32,9 @@ export const addProductService = async (
 export const useAddProduct = () =>
   useMutation({
     mutationFn: addProductService,
-    onSuccess: (data) => {
-      return data;
-    },
     onError: (error: Error) => {
-      console.log(`Add Product Service: ${error.message}`);
+      console.error(`Add Product Service error: ${error.message}`);
       return error;
     },
+    onSuccess: (data) => data,
   });

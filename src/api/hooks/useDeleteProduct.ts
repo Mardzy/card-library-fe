@@ -9,7 +9,7 @@ const deleteProductService = async (id: string): Promise<string> => {
   } catch (err) {
     const error = err as Error;
     const message = `Add Product Service: ${error.message}`;
-    console.log(message);
+    console.error(message);
 
     return message;
   }

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { useStore } from "config/store.ts";
-import { Product, useProduct } from "api/hooks";
+import { useProduct, Product } from "api/hooks";
+import { EditProductForm } from "components/forms/edit.product.form.tsx";
 
-function ProductView() {
+function EditProductView() {
   const [product, setProduct] = useState<Product>({} as Product);
   const { productId } = useParams();
   const {
@@ -13,10 +14,6 @@ function ProductView() {
     fetchProductById,
     setActiveProduct,
   } = useStore();
-
-  const { cards, manufacturer, name, year } = product;
-
-  const fullProductName = `${year} ${manufacturer} ${name}`;
 
   useEffect(() => {
     if (activeProduct.id) {
@@ -57,11 +54,10 @@ function ProductView() {
     <div className="error">{err.message}</div>
   ) : (
     <div className="container h-screen w-full">
-      <h1 className="text-4xl font-black">View Product</h1>
-      <p className="text-lg">{fullProductName}</p>
-      <p className="text-lg">{`with ${cards?.length || 0} cards`}</p>
+      <h1 className="text-4xl font-black">Edit Product</h1>
+      <EditProductForm {...product} />
     </div>
   );
 }
 
-export default ProductView;
+export default EditProductView;
